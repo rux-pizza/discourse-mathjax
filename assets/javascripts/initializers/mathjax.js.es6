@@ -1,7 +1,11 @@
 /* global MathJax */
-import mathjaxDecorator from "discourse/plugins/discourse-mathjax/lib/decorator";
 import { withPluginApi } from 'discourse/lib/plugin-api';
 import loadScript from 'discourse/lib/load-script';
+
+function decorator($html){
+  $.each($html, (i, domNode) =>
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, domNode]));
+}
 
 
 function initializePlugin(api){
@@ -43,7 +47,7 @@ function initializePlugin(api){
       },
       messageStyle: "none"
     });
-    api.decorateCooked(mathjaxDecorator);
+    api.decorateCooked(decorator);
   });
 }
 
@@ -52,6 +56,7 @@ export default {
   after: 'inject-objects',
 
   initialize: function (container) {
+    console.log("test");
     withPluginApi('0.5', initializePlugin);
   }
 };
