@@ -56,7 +56,6 @@ export default {
   after: 'inject-objects',
 
   initialize: function (container) {
-    console.log("test");
     withPluginApi('0.5', initializePlugin);
   }
 };
